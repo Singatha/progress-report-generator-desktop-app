@@ -7,7 +7,9 @@ import {
   cloneDeep,
   getTemplateFromJsonFile,
   downloadJsonFile,
+  font
 } from "./helper";
+import { grades } from './grades';
 
 function App() {
     const designerRef = useRef<HTMLDivElement | null>(null);
@@ -30,6 +32,7 @@ function App() {
             designer.current = new Designer({
                 domContainer: designerRef.current,
                 template,
+                options: { font }
             });
             designer.current.onSaveTemplate(onSaveTemplate);
         }
@@ -93,7 +96,7 @@ function App() {
     const onGeneratePDF = async () => {
         if (designer.current) {
             const template = designer.current.getTemplate();
-            const inputs = template.sampledata ?? [];
+            const inputs = grades;
             const pdf = await generate({ template, inputs });
             const blob = new Blob([pdf.buffer], { type: "application/pdf" });
             window.open(URL.createObjectURL(blob));

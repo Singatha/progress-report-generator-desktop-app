@@ -67,3 +67,10 @@ export const getTemplate = () => {
   };
   return template;
 };
+
+export const font = {
+  calibril: {
+    data: await fetch('fonts/calibril.ttf').then((res) => res.arrayBuffer()),
+    fallback: true,
+  }
+};
